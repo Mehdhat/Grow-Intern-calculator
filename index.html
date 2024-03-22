@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;   
+            text-align: center;  
+            font-weight: 500;       
+        }
+        button{
+            color: white;
+            background-color: transparent;
+            outline: none;
+            border: 2px solid #173443;
+            padding: 10px;
+            margin: 4px;
+            width: 35px;
+            border-radius: 10px;
+            box-shadow: #005d8a 0px 7px 29px 0px;
+            text-align: center;
+        }
+        .equal{
+            width: 82px;
+        }
+        .display-screen{
+            background-color: gray;
+            height: 10vh;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 5px;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: rgba(146, 146, 187, 0.2) 0px 7px 29px 0px;
+        }
+        .calculator{
+            background-color: #005d8a;
+            padding: 12px;
+            border-radius: 20px;
+            box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+            border: 2px solid gray;
+            outline: none;
+        }
+        .calculator h1{
+            color: white;
+            padding: 1px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+           <h1>Calculator</h1> 
+            <div class="display-screen" id="display">
+                0
+            </div>
+            <div class="buttons">
+                <div class="row1">
+                    <button onclick="clearScreen()">AC</button>
+                    <button onclick="deleteLast()">DE</button>
+                    <button onclick="appendValue('.')">.</button>
+                    <button onclick="appendValue('/')">/</button>
+                </div>
+                <div class="row2">
+                    <button onclick="appendValue('7')">7</button>
+                    <button onclick="appendValue('8')">8</button>
+                    <button onclick="appendValue('9')">9</button>
+                    <button onclick="appendValue('*')">*</button>
+                </div>
+                <div class="row3">
+                    <button onclick="appendValue('4')">4</button>
+                    <button onclick="appendValue('5')">5</button>
+                    <button onclick="appendValue('6')">6</button>
+                    <button onclick="appendValue('-')">-</button>
+                </div>
+                <div class="row4">
+                    <button onclick="appendValue('1')">1</button>
+                    <button onclick="appendValue('2')">2</button>
+                    <button onclick="appendValue('3')">3</button>
+                    <button onclick="appendValue('+')">+</button>
+                </div>
+                <div class="row4">
+                    <button onclick="appendValue('00')">00</button>
+                    <button onclick="appendValue('0')">0</button>
+                    <button class="equal" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let expression = '';
+
+        function appendValue(value) {
+            if(expression.length < 12) {
+                expression += value;
+                document.getElementById('display').innerText = expression;
+            }
+        }
+
+        function clearScreen() {
+            expression = '';
+            document.getElementById('display').innerText = '0';
+        }
+
+        function deleteLast() {
+            expression = expression.slice(0, -1);
+            document.getElementById('display').innerText = expression;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(expression);
+                document.getElementById('display').innerText = result.toString().slice(0, 7);
+                expression = result.toString();
+            } catch (error) {
+                document.getElementById('display').innerText = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
